@@ -1,3 +1,5 @@
+# Sorting unalgorithms
+
 Normally, in computer science we try to find the fastest algorithms, whether it be sorting, computing, and the such.
 
 But what if we didn't try to be efficient, but the exact opposite? What is the worst possible way to sort an array?
@@ -98,3 +100,13 @@ Here is how muscle sort would sort this array:
 * Finally, after applying the same process to each element, we obtain the array `[2, 3, 10, 11, 249, 250]` which is indeed sorted
 
 The greatest achievement of this sorting algorithm is that it has a time complexity of O(n), which makes it faster than quick sort and merge sort!
+
+> Can we do less work?
+
+### Vacuous Sort
+This is the wikipedia definition for a *Sorted Array*
+> A sorted array is an array data structure in which each element is sorted in numerical, alphabetical, or some other order [...\]
+
+In other words, if every element in the array is larger than the previous one (or the converse for descending order), it is sorted.
+Logically, for an array of size 0, all the elements in the array are sorted by default (It is vacuously true as our domain is empty).
+Clearly, we can implement a sorting algorithm that works in O(1), which returns an empty array. You asked for a sorted array, shouldve been more specific... ;)
