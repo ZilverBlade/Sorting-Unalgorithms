@@ -109,4 +109,12 @@ This is the wikipedia definition for a *Sorted Array*
 
 In other words, if every element in the array is larger than the previous one (or the converse for descending order), it is sorted.
 Logically, for an array of size 0, all the elements in the array are sorted by default (It is vacuously true as our domain is empty).
-Clearly, we can implement a sorting algorithm that works in O(1), which returns an empty array. You asked for a sorted array, shouldve been more specific... ;)
+Clearly, we can implement a sorting algorithm which returns an empty array. You asked for a sorted array, shouldve been more specific... ;)
+Here is how Vacuous Sort would sort this array: `[2, 8, 9, 0, 3, 5]`
+`vacuous_sort([2, 8, 9, 0, 3, 5]) -> []`
+We can also try this on an already sorted array.
+`vacuous_sort([1, 2, 3, 4]) -> []`
+Even on an array of length 1!
+`vacuous_sort([1]) -> []`
+
+We just created the fasting sorting algorithm, as it's one constant time operation (returning an empty array). Our algorithm is in O(1)!
