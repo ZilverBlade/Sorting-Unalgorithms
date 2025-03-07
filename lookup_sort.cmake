@@ -34,14 +34,10 @@ set_target_properties("lookup_sort" PROPERTIES
 )
 
 target_include_directories("lookup_sort" PRIVATE
-  vendor/simdjson/include
-  vendor/json/include
   vendor/zstd/lib
 )
 
-add_subdirectory("vendor/simdjson")
 add_subdirectory("vendor/zstd/build/cmake")
 target_link_libraries(lookup_sort PUBLIC 
   libzstd
-  simdjson
 )
