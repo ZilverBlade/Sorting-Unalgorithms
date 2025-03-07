@@ -22,7 +22,7 @@ set_target_properties("lookup_sort" PROPERTIES
 
 if (WIN32)
 set_property(TARGET "lookup_sort" 
-PROPERTY MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>DLL
+PROPERTY MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug> #no DLL because of simdjson
 )
 endif(WIN32)
 
@@ -39,5 +39,9 @@ target_include_directories("lookup_sort" PRIVATE
   vendor/zstd/lib
 )
 
+add_subdirectory("vendor/simdjson")
 add_subdirectory("vendor/zstd/build/cmake")
-target_link_libraries(lookup_sort PUBLIC libzstd)
+target_link_libraries(lookup_sort PUBLIC 
+  libzstd
+  simdjson
+)

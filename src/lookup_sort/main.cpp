@@ -6,11 +6,6 @@
 #include <cstdint>
 #include <cstddef>
 
-// serialiser
-#include <nlohmann/json.hpp>
-// deserialiser
-#include <simdjson/simdjson.h>
-
 // Space complexity (L = array length, X = num digits)
 // O(sigma(n = L, i = 0)(X^i))
 // ~400 MB of data
@@ -21,6 +16,8 @@ constexpr int64_t MAX_ARRAY_VALUE = 8;
 using integer_type = int32_t;
 
 struct hashable_list {
+    hashable_list(const std::vector<integer_type>& l) : list(l) {};
+
 	std::vector<integer_type> list;
 	bool operator==(const hashable_list& other) const {
 		return std::equal(list.begin(), list.end(), other.list.begin(), other.list.end());
@@ -61,10 +58,7 @@ std::vector<std::vector<integer_type>> permute(std::vector<integer_type> in) {
     return result;
 }
 
-void init_lookup_sort(std::filesystem::path lookup_path) {
-
-}
-void generate_lookup_table(std::filesystem::path output_path) {
+void generate_lookup_table() {
     std::vector<std::pair<std::vector<integer_type>, std::vector<std::vector<integer_type>>>> matrix;
 
     for (int i = 0; i < MAX_ARRAY_LENGTH; ++i) {
@@ -74,35 +68,36 @@ void generate_lookup_table(std::filesystem::path output_path) {
             matrix[i].first.push_back(j);
         }
         matrix[i].second = permute(matrix[i].first);
-    }
-
-    nlohmann::ordered_json table;
-    table["table"] = nlohmann::ordered_json::array();
-    for (auto& [ordered, lists] : matrix) {
-        std::cout << "Storing permutation with array length = " << ordered.size() << std::endl;
-        nlohmann::ordered_json entry;
-        entry["key"] = ordered;
-        entry["values"] = nlohmann::ordered_json::array();
-        for (auto& mess : lists) {
-            nlohmann::ordered_json sub_entry;
-            entry["values"].push_back(mess);
+        for (auto x : matrix[i].second) {
+            lut[x] = matrix[i].first;
         }
-        table["table"].push_back(entry);
     }
-
-    std::string contents = table.dump(0);
-    std::ofstream out;
-    out.open(output_path);
-    out.write(contents.data(), contents.size());
-    out.flush();
-    out.close();
 }
 
-void lookup_sort(const std::vector<int8_t>& list) {
-
+void lookup_sort(std::vector<integer_type>& list) {
+    auto it = lut.find(list);
+    if (it == lut.end()) {
+        throw std::runtime_error("Illegal array");
+    }
+    list = it->second;
 }
 
 int main() {
-    //generate_lookup_table("data/lookup_sort/table.json");
+    generate_lookup_table();
 
+    std::vector sampleArray = { 8, 3, 6, 5, 2, 4, 1, 0, 7 };
+    std::cout << "To sort:\n";
+    std::cout << "[ ";
+    for (auto& i : sampleArray) {
+        std::cout << i << ", ";
+    }
+    std::cout << "]\n";
+
+    lookup_sort(sampleArray);
+
+    std::cout << "[ ";
+    for (auto& i : sampleArray) {
+        std::cout << i << ", ";
+    }
+    std::cout << "]\n";
 }
