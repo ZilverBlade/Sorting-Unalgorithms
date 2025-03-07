@@ -85,3 +85,16 @@ We see a pattern, let `lim x -> inf` be the total amount of runs until the list 
 We have an exponential function is our equation, so our time complexity in theory would be `O(log(n * n!))`! Success!
 Of course, while in theory this is much more efficient, in practicality we are limited by the number of threads on the CPU. As soon as we create more threads than are available, the operating system is responsible for scheduling multiple virtual threads, that share the same physical thread (which leads to thrashing thanks to many context switches). In fact, this may even reach a physical limit after even a handful of rounds as each new thread requires a new stack frame, which makes this by far one of the most resource hungry algorithm (alongside lookup sort)
 
+> Maybe the better approach is to do less work, rather than more
+
+### Muscle Sort
+Like you know, us humans are able to naturally build muscle, and gain strength, the same logic applies to numbers.
+If the next element in the array is smaller the the previous one, we send it to the gym until it's greater than the previous one.
+Here is how muscle sort would sort this array:
+`[2, 1, 10, 3, 249, 5]`
+* 2 is the first element in the array, it does not need to work out,
+* 1 on the other hand, is lazy, as it's weaker than the previous element, it must be sent to the gym
+* Our array looks as follows: `[2, 3, 10, 3, 249, 5]`
+* Finally, after applying the same process to each element, we obtain the array `[2, 3, 10, 11, 249, 250]` which is indeed sorted
+
+The greatest achievement of this sorting algorithm is that it has a time complexity of O(n), which makes it faster than quick sort and merge sort!
