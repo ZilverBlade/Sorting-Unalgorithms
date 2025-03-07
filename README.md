@@ -45,4 +45,33 @@ It works as follows:
 * On one thread, we first bogosort the entire array.
 * If it's not sorted, then we create 2 new threads, and copy the bogo sorted array onto them.
 * We continue this recursively until one thread has a sorted array, and we notify all the other threads that the array is sorted!
+But how do we compute the time complexity?
+Let a function `T(n)` that takes in an array of length `n`
+Our function's complexity looks as follows:
+* `T(n) = T(n) / 2`.
+We divide by 2 to represent that our work load is divided in half, and we add `n` to account for us checking if the array is sorted.
+We know that bogo sort's average time complexity is `O(n*n!)`, so we just need to account for that complexity in each recursive call, so let's add it in
+Since there is no base case time complexity, this may continue infinitely. But what is the closed form? Let's try to unravel it:
+* `T(n) = n * n! + T(n) / 2`
+Conveniently, as we dont have any factors in our recursive term, we can just subctract `T(n) / 2` on both sides
+* `T(n)  - T(n) / 2 = n * n! + T(n) / 2 - T(n) / 2  <=> T(n) / 2 = n * n!  <=>  T(n) = 2 * n * n! `
+Huh? Our time complexity is larger? The time complexity accounts for the amount of comparisons, it doesn't really account for parallelism, and since bogo sort actually accounts for the permutations,
+we need to think about probability.
+
+The chance of an array to be sorted is `1/n!`. Theoretically, this chance duplicates if we evaluate it on a new thread.
+So let `P(n)` be the probability of the array being sorted
+* `P(n) = 1 / n!`
+This would be the probability of the array being sorted after 1 run. Lets add another input to our equation `r`, the number of runs
+* `P(n, r) = r / n!`
+We double our runs every single permutation, so the probability of it being sorted duplicates!
+* `P(n, r) = r / n! + P(n, 2r)`
+The closed form of the equation would be as follows
+* `P(n, r) = r / n! + P(n, 2r)`
+* `P(n, r) = r / n! + 2r / n! + P(n, 4r)`
+* `P(n, r) = 3r / n! + 4r / n! + P(n, 8r)`
+* `P(n, r) = 7r / n! + 8r / n! + P(n, 16r)`
+* `P(n, r) = 15r / n! + 16r / n! + P(n, 32r)`
+We see a pattern, let `lim x -> inf` be the total amount of runs until the list is sorted, and lets start our function with 1 round only.
+* `P(n, 1) = (2^x - 1) / n!`
+We have an exponential function is our equation, so our time complexity in theory would be `O(log(n * n!))`! Success!
 
