@@ -4,7 +4,8 @@
 
 // Space complexity (L = array length, X = num digits)
 // O(sigma(n = L, i = 0)(X^i))
-// ~400 MB of data
+// ~1200 MB of data, still less than google chrome :)
+
 constexpr size_t MAX_ARRAY_LENGTH = 10;
 constexpr int64_t MIN_ARRAY_VALUE = 0;
 constexpr int64_t MAX_ARRAY_VALUE = MAX_ARRAY_LENGTH - 1;
