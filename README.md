@@ -13,7 +13,7 @@ Visualised it's very slow, but unfortunately it only has a time complexity of O(
 ### Slow sort
 This is takes inspiration from the blazingly fast merge sort, but instead of merging the sorted arrays, it will only swap the largest elements within the array, 
 making sure that the largest element is on the end of the array, followed by recursively slow sorting the rest of the array (except for the last element). 
-Now this sounds very slow, which it is, but again, unforunately has the same time complexity as Stooge Sort! :(
+Now this sounds very slow, which it is, but again, unfortunately has the same time complexity as Stooge Sort! :(
 
 > Let's be creative
 
@@ -27,8 +27,11 @@ What if we created a dictionary, that contains every possible array in the unive
 ```
 It would be extremely impractical however, as it has a space complexity of O(∞). 
 The actual space complexity, assuming we strictly use 32 bit integer for our array, would be (where n is the maximum array length):
-* `O( (2^32)^(n) ))*`
+* `O( (2^32)^(n) ))`
+
 If we were to even implement this sorting algorithm for an array of length 1, it would require at least 51GB of memory! (Assuming a key size of 8 bytes and the array size being exactly 4 bytes)
+
+[Try it out!](https://github.com/ZilverBlade/Sorting-Unalgorithms/tree/master/src/lookup_sort)
 
 > Can we maybe try going for the worst time complexity?
 
@@ -38,6 +41,7 @@ For instance, an array `[0, 1, 2]` can also be listed as `[1, 0, 2]`, `[2, 1, 0]
 What's interesting is that at least one combination of elements is guaranteed to be sorted! So, what's our algorithm?
 Just try every single combination until it's sorted!
 The time complexity is thus `O(n!)`
+[Try it out!](https://github.com/ZilverBlade/Sorting-Unalgorithms/tree/master/src/permute_sort)
 
 > A twist on bogo sort
 
@@ -86,6 +90,8 @@ We see a pattern, let `lim x -> inf` be the total amount of runs until the list 
 
 We have an exponential function is our equation, so our time complexity in theory would be `O(log(n * n!))`! Success!
 Of course, while in theory this is much more efficient, in practicality we are limited by the number of threads on the CPU. As soon as we create more threads than are available, the operating system is responsible for scheduling multiple virtual threads, that share the same physical thread (which leads to thrashing thanks to many context switches). In fact, this may even reach a physical limit after even a handful of rounds as each new thread requires a new stack frame, which makes this by far one of the most resource hungry algorithm (alongside lookup sort)
+
+[Try it out!](https://github.com/ZilverBlade/Sorting-Unalgorithms/tree/master/src/parallel_bogo_sort)
 
 > Maybe the better approach is to do less work, rather than more
 
