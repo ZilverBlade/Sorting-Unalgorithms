@@ -20,6 +20,10 @@ set_target_properties("lookup_sort" PROPERTIES
   INTERPROCEDURAL_OPTIMIZATION False
 )
 
+target_include_directories("lookup_sort" PRIVATE 
+  ${CMAKE_SOURCE_DIR}/src
+)
+
 if (WIN32)
 set_property(TARGET "lookup_sort" 
 PROPERTY MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug> #no DLL because of simdjson
@@ -31,13 +35,4 @@ set_target_properties("lookup_sort" PROPERTIES
   ARCHIVE_OUTPUT_DIRECTORY ${OUTPUT_PATH}
   LIBRARY_OUTPUT_DIRECTORY ${OUTPUT_PATH}
   RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_PATH}
-)
-
-target_include_directories("lookup_sort" PRIVATE
-  vendor/zstd/lib
-)
-
-add_subdirectory("vendor/zstd/build/cmake")
-target_link_libraries(lookup_sort PUBLIC 
-  libzstd
 )

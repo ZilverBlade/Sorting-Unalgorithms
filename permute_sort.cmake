@@ -19,6 +19,10 @@ set_target_properties("permute_sort" PROPERTIES
   POSITION_INDEPENDENT_CODE False
   INTERPROCEDURAL_OPTIMIZATION False
 )
+target_include_directories("permute_sort" PRIVATE 
+  ${CMAKE_SOURCE_DIR}/src
+)
+
 
 if (WIN32)
 set_property(TARGET "permute_sort" 

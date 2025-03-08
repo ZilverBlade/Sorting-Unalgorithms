@@ -1,20 +1,14 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <fstream>
-#include <filesystem>
-#include <cstdint>
-#include <cstddef>
-#include <cassert>
+#include <commons/timer.h>
+#include <algorithm>
 
-int permute_sort(std::vector<int>& in) {
-    int permutations = 0;
-
+static int permutations = 0;
+void permute_sort(std::vector<integer_type>& in) {
+    permutations = 0;
     bool unsorted;
     do {
         unsorted = false;
         for (int i = 0; i < in.size() - 1; ++i) {
-            if (in[i] > in[i+1]) {
+            if (in[i] > in[i + 1]) {
                 unsorted = true;
                 break;
             }
@@ -22,25 +16,13 @@ int permute_sort(std::vector<int>& in) {
         if (!unsorted) break;
         ++permutations;
     } while (std::next_permutation(in.begin(), in.end()));
-    
-    return permutations;
+
 }
 
 int main() {
-    std::vector sampleArray = { 1, 8, 2, 0, 2, 3 };
-    std::cout << "To sort:\n";
-    std::cout << "[ ";
-    for (auto& i : sampleArray) {
-        std::cout << i << ", ";
-    }
-    std::cout << "]\n";
+    std::vector sampleArray = { 9, 5, 420, 69, 41, 777, 115, 117, 1984 };
 
-    int permutes = permute_sort(sampleArray);
+    profile_sorting(sampleArray, permute_sort);
 
-    std::cout << "Done in " << permutes << " permutations\n";
-    std::cout << "[ ";
-    for (auto& i : sampleArray) {
-        std::cout << i << ", ";
-    }
-    std::cout << "]\n";
+    std::cout << "Sorted after " << permutations << " permutations" << std::endl;
 }
