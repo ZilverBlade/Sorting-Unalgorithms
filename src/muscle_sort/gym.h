@@ -3,5 +3,5 @@
 
 class gym {
 public:
-	void workout(integer_type& dude, integer_type target);
+	void workout(volatile integer_type& dude, volatile integer_type target);
 };
