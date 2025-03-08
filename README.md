@@ -4,6 +4,8 @@ Normally, in computer science we try to find the fastest algorithms, whether it 
 
 But what if we didn't try to be efficient, but the exact opposite? What is the worst possible way to sort an array?
 
+**Edit:** You can now try out the prebuilt x64 windows binaries [here](https://github.com/ZilverBlade/Sorting-Unalgorithms/releases) 
+
 ### Stooge sort
 A very slow sorting algorithm that works based on sorting 2/3 of the left elements, and then the right elements, and left again, recursively.
 Visualised it's very slow, but unfortunately it only has a time complexity of O(n^(log 3 / log 1.5)) (approximately O(n^2.709))
