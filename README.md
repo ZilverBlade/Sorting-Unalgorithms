@@ -101,7 +101,7 @@ Here is how muscle sort would sort this array:
 
 The greatest achievement of this sorting algorithm is that it has a time complexity of O(n), which makes it faster than quick sort and merge sort!
 
-> Can we do less work?
+> Can we do EVEN less work?
 
 ### Vacuous Sort
 This is the wikipedia definition for a *Sorted Array*
