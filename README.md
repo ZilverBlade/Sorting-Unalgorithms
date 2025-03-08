@@ -111,7 +111,7 @@ In other words, if every element in the array is larger than the previous one (o
 
 Logically, for an array of size 0, all the elements in the array are sorted by default (It is vacuously true as our domain is empty).
 
-Clearly, we can implement a sorting algorithm which returns an empty array. You asked for a sorted array, shouldve been more specific... ;)
+Clearly, we can implement a sorting algorithm which returns an empty array. You asked for a sorted array, should've been more specific... ;)
 
 Here is how Vacuous Sort would sort this array: `[2, 8, 9, 0, 3, 5]`
 * `vacuous_sort([2, 8, 9, 0, 3, 5]) -> []`
